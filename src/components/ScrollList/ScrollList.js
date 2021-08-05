@@ -38,6 +38,9 @@ export const ScrollList = (props) => {
       }
     })}
 
+  useEffect(()=>{
+    window.scrollTo(150000, 0);
+  },[])
 
   useEffect(() => {
     let optionsRight = {
@@ -53,7 +56,7 @@ export const ScrollList = (props) => {
     const observerLeft = new IntersectionObserver(handleObserverLeft, optionsLeft);
     const observerRight = new IntersectionObserver(handleObserverRight, optionsRight);
     if (ref.current) observerLeft.observe(ref.current.children[0]);
-    if (ref.current) observerRight.observe(ref.current.children[6]);
+    if (ref.current) observerRight.observe(ref.current.children[ref.current.children.length-1]);
     return () => {
       if (ref.current) observerLeft.unobserve(ref.current);
       if (ref.current) observerRight.unobserve(ref.current);
@@ -62,13 +65,13 @@ export const ScrollList = (props) => {
 
   return (
     <div
-      ref={ref} style={{ width: `${items[items.length - 1] * 300}px`}}
+      ref={ref} style={{ width: `${300000+((Math.floor(items[items.length - 1] / items.length)) * 300*items.length)}px`}}
       className={classes.wrapper}
     >
       {items.map((item, i) => (
         <div
-          style={{position: "absolute", left: `${item * 300}px`, top: "0"}}
-          key={Math.random()*Math.random()}
+          style={{position: "absolute", left: `${150000 + (item * 300)}px`, top: "0"}}
+          key={item}
         >
           <p>{item}</p>
           <div className={classes.mockup}/>
