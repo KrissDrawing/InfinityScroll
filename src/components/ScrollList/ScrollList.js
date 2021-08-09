@@ -7,79 +7,39 @@ export const ScrollList = (props) => {
   const screen = useRef(null);
   const [items, setItems] = useState([0, 1, 2, 3, 4, 5, 6]);
 
-  let previousY = 0
-  let previousRatio = 0
+  let prevScrollPosition = window.pageXOffset;
 
   //lewo
   let wasRight = false;
   const handleObserverRight = useCallback((entries) => {
     entries.forEach(entry => {
-     console.log(window.pageXOffset);
-
-      const currentY = entry.boundingClientRect.x
-      const currentRatio = entry.intersectionRatio
-      const isIntersecting = entry.isIntersecting
-      // Scrolling down/up
-      if (currentY < previousY) {
-        if (currentRatio > previousRatio && isIntersecting) {
+      let newScrollPosition = window.pageXOffset;
+      //scroll Right;
+      if (newScrollPosition > prevScrollPosition) {
+        if (entry.isIntersecting) {
           const tmp = items[0] + 7;
           setItems((prev) => [...prev.slice(1), tmp]);
-          // console.log('Scrolling right enter')
-        } else {
-          // console.log('Scrolling right leave')
-        }
-      } else if (currentY > previousY && isIntersecting) {
-        if (currentRatio < previousRatio) {
-          // console.log('Scrolling left leave')
-        } else {
-          // console.log('Scrolling left enter')
+          console.log('pravo')
         }
       }
-      previousY = currentY
-      previousRatio = currentRatio
+      prevScrollPosition = newScrollPosition;
     })
   })
 
+  // lewo
 
-
-
-
-
-
-
-
-  //     console.log(entry.boundingClientRect);
-  //     if(!entry.isIntersecting){
-  //       return;
-  //     }
-  //     if (entry.boundingClientRect && entry.rootBounds) {
-  //     // console.log('lewo', entry.boundingClientRect.x);
-  //     // console.log('lewo', entry.rootBounds.x);
-  //       const isRight = entry.boundingClientRect.x > entry.rootBounds.x;
-  //         if (wasRight) {
-  //         const tmp = items[0] + 7;
-  //         setItems((prev) => [...prev.slice(1), tmp]);
-  //           console.log(entry.target)
-  //         }
-  //     wasRight = isRight;
-  //   }
-  // })}
-
-  // prawo
-  let wasLeft = false;
   const handleObserverLeft = (entries) => {
     entries.forEach(entry => {
+      let newScrollPosition = window.pageXOffset;
+      //scroll Right;
+      if (newScrollPosition < prevScrollPosition) {
         if (entry.isIntersecting) {
-      if (entry.boundingClientRect && entry.rootBounds) {
-        const isLeft = entry.boundingClientRect.x < entry.rootBounds.x;
-
-          if (wasLeft) {
-              const tmp = items[items.length-1] - 7;
-              setItems((prev) => [tmp, ...prev.slice(0,-1)]);
+          const tmp = items[items.length-1] - 7;
+          setItems((prev) => [tmp, ...prev.slice(0,-1)]);
+          console.log('levo')
         }
-        wasLeft = isLeft;
       }
-          }
+      prevScrollPosition = newScrollPosition;
     })}
 
   useEffect(()=>{
@@ -87,13 +47,16 @@ export const ScrollList = (props) => {
   },[])
 
   useEffect(() => {
+    window.addEventListener('scroll', function(e) {
+      console.count('scroll');
+    });
     let optionsRight = {
       rootMargin: "0px",
-      threshold: 0.5
+      threshold: 0.1
     };
     let optionsLeft = {
       rootMargin: "0px",
-      threshold: 0.5,
+      threshold: 0.1,
     };
     const observerLeft = new IntersectionObserver(handleObserverLeft, optionsLeft);
     const observerRight = new IntersectionObserver(handleObserverRight, optionsRight);
