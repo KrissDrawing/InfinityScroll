@@ -42,45 +42,44 @@ export const ScrollList = (props) => {
       prevScrollPosition = newScrollPosition;
     })}
 
-  useEffect(()=>{
-    window.scrollTo(150000, 0);
-  },[])
+  // useEffect(()=>{
+  //   window.scrollTo(150000, 0);
+  // },[])
+
+  let stop = false;
 
   useEffect(() => {
     window.addEventListener('scroll', function(e) {
-      console.count('scroll');
+
+      if(!stop) {
+        let newScrollPosition = window.pageXOffset + window.innerWidth;
+        //scroll Right;
+        console.log('scroll pos',newScrollPosition)
+        if (items[6]*300 < newScrollPosition) {
+          console.log('items', items[6]*300)
+          //do sth thats connected with scrollX
+          const max = Math.floor(newScrollPosition / 300)
+          const tmp = items[0] + 7;
+          setItems((prev) => [max-6, max-5, max-4, max-3, max-2, max-1, max]);
+        }
+        prevScrollPosition = newScrollPosition;
+        stop=true;
+      setTimeout(() => {
+        stop = false;
+      },100)
+      }
     });
-    let optionsRight = {
-      rootMargin: "0px",
-      threshold: 0.1
-    };
-    let optionsLeft = {
-      rootMargin: "0px",
-      threshold: 0.1,
-    };
-    const observerLeft = new IntersectionObserver(handleObserverLeft, optionsLeft);
-    const observerRight = new IntersectionObserver(handleObserverRight, optionsRight);
-    // if (ref.current) observerLeft.observe(ref.current.children[0]);
-    // if (ref.current) ref.current.forEach((card)=>{
-    //   observerRight.observe(card);
-    // })
-    if (ref.current) observerRight.observe(ref.current[6]);
-    if (ref.current) observerLeft.observe(ref.current[0]);
     return () => {
-      // if (ref.current) observerLeft.unobserve(ref.current);
-      if (ref.current) ref.current.forEach((card)=>{
-        observerRight.unobserve(card);
-      })
     };
   }, [ handleObserverRight]);
 
   return (
-    <div style={{ width: `${300000+((Math.floor(items[items.length - 1] / items.length)) * 300*items.length)}px`}}
+    <div style={{ width: `${((Math.floor(items[items.length - 1] / items.length)) * 300*items.length)}px`}}
       className={classes.wrapper}
     >
       {items.map((item, i) => (
         <div
-          style={{position: "absolute", left: `${150000 + (item * 300)}px`, top: "0"}}
+          style={{position: "absolute", left: `${(item * 300)}px`, top: "0"}}
           key={item}
           ref={el => (ref.current[i] = el)}
         >
