@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/InfiniteScroll/static/css/main.a617e044.chunk.css",
-    "main.js": "/InfiniteScroll/static/js/main.cfce2b20.chunk.js",
-    "main.js.map": "/InfiniteScroll/static/js/main.cfce2b20.chunk.js.map",
-    "runtime-main.js": "/InfiniteScroll/static/js/runtime-main.a5a2509e.js",
-    "runtime-main.js.map": "/InfiniteScroll/static/js/runtime-main.a5a2509e.js.map",
-    "static/js/2.a6f56901.chunk.js": "/InfiniteScroll/static/js/2.a6f56901.chunk.js",
-    "static/js/2.a6f56901.chunk.js.map": "/InfiniteScroll/static/js/2.a6f56901.chunk.js.map",
-    "static/js/3.05a34650.chunk.js": "/InfiniteScroll/static/js/3.05a34650.chunk.js",
-    "static/js/3.05a34650.chunk.js.map": "/InfiniteScroll/static/js/3.05a34650.chunk.js.map",
-    "index.html": "/InfiniteScroll/index.html",
-    "static/css/main.a617e044.chunk.css.map": "/InfiniteScroll/static/css/main.a617e044.chunk.css.map",
-    "static/js/2.a6f56901.chunk.js.LICENSE.txt": "/InfiniteScroll/static/js/2.a6f56901.chunk.js.LICENSE.txt"
+    "main.css": "/InfinityScroll/static/css/main.a617e044.chunk.css",
+    "main.js": "/InfinityScroll/static/js/main.cfce2b20.chunk.js",
+    "main.js.map": "/InfinityScroll/static/js/main.cfce2b20.chunk.js.map",
+    "runtime-main.js": "/InfinityScroll/static/js/runtime-main.a819b8fa.js",
+    "runtime-main.js.map": "/InfinityScroll/static/js/runtime-main.a819b8fa.js.map",
+    "static/js/2.a6f56901.chunk.js": "/InfinityScroll/static/js/2.a6f56901.chunk.js",
+    "static/js/2.a6f56901.chunk.js.map": "/InfinityScroll/static/js/2.a6f56901.chunk.js.map",
+    "static/js/3.05a34650.chunk.js": "/InfinityScroll/static/js/3.05a34650.chunk.js",
+    "static/js/3.05a34650.chunk.js.map": "/InfinityScroll/static/js/3.05a34650.chunk.js.map",
+    "index.html": "/InfinityScroll/index.html",
+    "static/css/main.a617e044.chunk.css.map": "/InfinityScroll/static/css/main.a617e044.chunk.css.map",
+    "static/js/2.a6f56901.chunk.js.LICENSE.txt": "/InfinityScroll/static/js/2.a6f56901.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.a5a2509e.js",
+    "static/js/runtime-main.a819b8fa.js",
     "static/js/2.a6f56901.chunk.js",
     "static/css/main.a617e044.chunk.css",
     "static/js/main.cfce2b20.chunk.js"
