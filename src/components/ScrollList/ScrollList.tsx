@@ -3,6 +3,7 @@ import { FixedSizeList as List } from "react-window";
 import { DateTime } from "luxon";
 import { Box, Button, createStyles, makeStyles, Typography } from "@material-ui/core";
 import { DayColumn } from "../DayColumn";
+import { WeeksColumn } from "../WeeksColumn";
 
 export const ScrollList = () => {
   const classes = useStyles();
@@ -26,11 +27,18 @@ export const ScrollList = () => {
   const Column = ({index, style}: { index: number, style: any }) => (
     <div style={style} className={classes.mockup}>
       {week
-        ? null : (<Box>
-          <Typography>{DateTime.now().plus({week: index - initialOffset}).weekNumber}</Typography>
-          <Typography>{DateTime.now().plus({week: index - initialOffset}).startOf("week").toLocaleString()}</Typography>
-          <DayColumn monday={DateTime.now().plus({week: index - initialOffset}).startOf("week")}/>
-        </Box>)}
+        ? (
+          <Box>
+            <Typography>{DateTime.now().plus({week: (4 * index) - initialOffset}).startOf("week").monthLong}</Typography>
+          <WeeksColumn monday={DateTime.now().plus({week: (4 * index) - initialOffset}).startOf("week")}/>
+          </Box>
+        ) : (
+          <Box>
+            <Typography>{DateTime.now().plus({week: index - initialOffset}).weekNumber}</Typography>
+            <Typography>{DateTime.now().plus({week: index - initialOffset}).startOf("week").toLocaleString()}</Typography>
+            <DayColumn monday={DateTime.now().plus({week: index - initialOffset}).startOf("week")}/>
+          </Box>
+        )}
     </div>
   );
 
