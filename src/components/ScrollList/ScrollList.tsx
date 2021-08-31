@@ -42,7 +42,7 @@ export const ScrollList = () => {
             <WeeksColumn monday={DateTime.now().plus({week: (4 * index) - 4 * initialOffset}).startOf("week")}/>
           </Box>
         ) : (
-          <Box>
+          <Box className={classes.cardWrapper}>
             <Box className={classes.dateWrapper}>
               <Typography>{DateTime.now().plus({week: index - initialOffset}).monthShort}</Typography>
               <Typography>{DateTime.now().plus({week: index - initialOffset}).year}</Typography>
