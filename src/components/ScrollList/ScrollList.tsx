@@ -34,9 +34,9 @@ export const ScrollList = () => {
     <div style={style} className={classes.listItem}>
       {week
         ? (
-          <Box>
+          <Box className={classes.cardWrapper}>
             <Box className={classes.dateWrapper}>
-              <Typography>{DateTime.now().plus({week: (4 * index) - 4 * initialOffset}).startOf("week").monthLong}</Typography>
+              <Typography>{DateTime.now().plus({week: (4 * index) - 4 * initialOffset}).startOf("week").monthShort}</Typography>
               <Typography>{DateTime.now().plus({week: (4 * index) - 4 * initialOffset}).startOf("week").year}</Typography>
             </Box>
             <WeeksColumn monday={DateTime.now().plus({week: (4 * index) - 4 * initialOffset}).startOf("week")}/>
@@ -44,7 +44,7 @@ export const ScrollList = () => {
         ) : (
           <Box>
             <Box className={classes.dateWrapper}>
-              <Typography>{DateTime.now().plus({week: index - initialOffset}).weekNumber}</Typography>
+              <Typography>{DateTime.now().plus({week: index - initialOffset}).monthShort}</Typography>
               <Typography>{DateTime.now().plus({week: index - initialOffset}).year}</Typography>
             </Box>
             <DayColumn monday={DateTime.now().plus({week: index - initialOffset}).startOf("week")}/>
@@ -88,6 +88,11 @@ export const ScrollList = () => {
 
 const useStyles = makeStyles(() =>
   createStyles({
+    cardWrapper:{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+    },
     listItem: {
       boxSizing: "border-box",
       background: "lightblue",
