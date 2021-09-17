@@ -1,19 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { DayColumnProps } from "./DayColumn.types";
 import { Button, createStyles, makeStyles, Typography } from "@material-ui/core";
 
 export const DayColumn: React.FC<DayColumnProps> = (props) => {
-  const {monday} = props;
+  const {monday, task, addTask} = props;
   const classes = useStyles();
-  const [task, setTask] = useState<string[]>([]);
-
-  const addTask = (e:any) => {
-    if(task.some((item) => item === e.target.value)) {
-      setTask((prevState)=> prevState.filter(item => item !== e.target.value))
-    } else {
-    setTask((prevState)=> [...prevState, e.target.value])
-    }
-  }
 
   useEffect(() => {
     console.log(task)

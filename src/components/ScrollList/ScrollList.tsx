@@ -11,6 +11,17 @@ export const ScrollList = () => {
 
   const [listWidth, setListWidth] = useState(0);
   const [week, setWeek] = useState(false);
+  const [task, setTask] = useState<string[]>([]);
+
+  const addTask = (e:any) => {
+    if(task.some((item) => item === e.target.value)) {
+      setTask((prevState)=> prevState.filter(item => item !== e.target.value))
+    } else {
+      setTask((prevState)=> [...prevState, e.target.value])
+    }
+  }
+
+
 
   const listRef = useRef<List>(null)
 
@@ -47,7 +58,7 @@ export const ScrollList = () => {
               <Typography>{DateTime.now().plus({week: index - initialOffset}).monthShort}</Typography>
               <Typography>{DateTime.now().plus({week: index - initialOffset}).year}</Typography>
             </Box>
-            <DayColumn monday={DateTime.now().plus({week: index - initialOffset}).startOf("week")}/>
+            <DayColumn task={task} addTask={addTask} monday={DateTime.now().plus({week: index - initialOffset}).startOf("week")}/>
           </Box>
         )}
     </div>
