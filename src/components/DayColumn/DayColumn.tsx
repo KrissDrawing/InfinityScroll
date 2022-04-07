@@ -1,33 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DayColumnProps } from "./DayColumn.types";
-import { createStyles, makeStyles, Typography } from "@material-ui/core";
+import { Button, createStyles, makeStyles, Typography } from "@material-ui/core";
 
 export const DayColumn: React.FC<DayColumnProps> = (props) => {
-  const {monday} = props;
+  const {monday, task, addTask} = props;
   const classes = useStyles();
+
+  useEffect(() => {
+    console.log(task)
+  }, [task]);
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.dayWrapper}>
-        <Typography>{monday.plus({day: 0}).day}</Typography>
+      <div className={classes.tableWrapper}>
+        {Array.from(Array(7).keys()).map(day => (
+          <div key={day} className={classes.dayWrapper}>
+            <Typography>{monday.plus({day: day}).day}</Typography>
+          </div>
+        ))}
       </div>
-      <div className={classes.dayWrapper}>
-        <Typography>{monday.plus({day: 1}).day}</Typography>
-      </div>
-      <div className={classes.dayWrapper}>
-        <Typography>{monday.plus({day: 2}).day}</Typography>
-      </div>
-      <div className={classes.dayWrapper}>
-        <Typography>{monday.plus({day: 3}).day}</Typography>
-      </div>
-      <div className={classes.dayWrapper}>
-        <Typography>{monday.plus({day: 4}).day}</Typography>
-      </div>
-      <div className={classes.dayWrapper}>
-        <Typography>{monday.plus({day: 5}).day}</Typography>
-      </div>
-      <div className={classes.dayWrapper}>
-        <Typography>{monday.plus({day: 6}).day}</Typography>
+      <div className={classes.tableWrapperTasks}>
+        {Array.from(Array(7).keys()).map(day => (
+          <Button
+            onClick={addTask}
+            value={monday.plus({day: day}).toISODate()}
+            key={day}
+            className={task.some((item) => item === monday.plus({day: day}).toISODate())
+              ? classes.dayWrapperSaved
+              : classes.dayWrapper}
+          />
+        ))}
       </div>
     </div>
   )
@@ -35,10 +37,35 @@ export const DayColumn: React.FC<DayColumnProps> = (props) => {
 
 const useStyles = makeStyles(() => createStyles({
   wrapper: {
-    display: 'flex',
-  },
-  dayWrapper: {
-    border: '1px solid black',
+    display: "flex",
+    flexDirection: "column",
     flexGrow: 1,
   },
+  tableWrapper: {
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: "repeat(7,1fr)",
+  },
+  tableWrapperTasks: {
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: "repeat(7,1fr)",
+    flexGrow: 1,
+  },
+  dayWrapper: {
+    border: "1px solid black",
+    borderRadius: 0,
+    flexGrow: 1,
+    minWidth: 0,
+  },
+  dayWrapperSaved: {
+    border: "1px solid black",
+    borderRadius: 0,
+    flexGrow: 1,
+    minWidth: 0,
+    backgroundColor: 'red',
+    '&:hover': {
+      backgroundColor: 'darkRed',
+    }
+  }
 }), {name: "DayColumn"});

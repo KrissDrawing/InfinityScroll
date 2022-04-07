@@ -11,6 +11,17 @@ export const ScrollList = () => {
 
   const [listWidth, setListWidth] = useState(0);
   const [week, setWeek] = useState(false);
+  const [task, setTask] = useState<string[]>([]);
+
+  const addTask = (e:any) => {
+    if(task.some((item) => item === e.target.value)) {
+      setTask((prevState)=> prevState.filter(item => item !== e.target.value))
+    } else {
+      setTask((prevState)=> [...prevState, e.target.value])
+    }
+  }
+
+
 
   const listRef = useRef<List>(null)
 
@@ -34,20 +45,20 @@ export const ScrollList = () => {
     <div style={style} className={classes.listItem}>
       {week
         ? (
-          <Box>
+          <Box className={classes.cardWrapper}>
             <Box className={classes.dateWrapper}>
-              <Typography>{DateTime.now().plus({week: (4 * index) - 4 * initialOffset}).startOf("week").monthLong}</Typography>
+              <Typography>{DateTime.now().plus({week: (4 * index) - 4 * initialOffset}).startOf("week").monthShort}</Typography>
               <Typography>{DateTime.now().plus({week: (4 * index) - 4 * initialOffset}).startOf("week").year}</Typography>
             </Box>
             <WeeksColumn monday={DateTime.now().plus({week: (4 * index) - 4 * initialOffset}).startOf("week")}/>
           </Box>
         ) : (
-          <Box>
+          <Box className={classes.cardWrapper}>
             <Box className={classes.dateWrapper}>
-              <Typography>{DateTime.now().plus({week: index - initialOffset}).weekNumber}</Typography>
+              <Typography>{DateTime.now().plus({week: index - initialOffset}).monthShort}</Typography>
               <Typography>{DateTime.now().plus({week: index - initialOffset}).year}</Typography>
             </Box>
-            <DayColumn monday={DateTime.now().plus({week: index - initialOffset}).startOf("week")}/>
+            <DayColumn task={task} addTask={addTask} monday={DateTime.now().plus({week: index - initialOffset}).startOf("week")}/>
           </Box>
         )}
     </div>
@@ -88,6 +99,11 @@ export const ScrollList = () => {
 
 const useStyles = makeStyles(() =>
   createStyles({
+    cardWrapper:{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+    },
     listItem: {
       boxSizing: "border-box",
       background: "lightblue",
